@@ -21,6 +21,12 @@ use Yii;
  */
 class Leaderboard extends \yii\db\ActiveRecord
 {
+    public static $publicTypes = [
+        null => 'Unlisted (anyone with link can view)',
+        0 => 'Private (only you can view)',
+        1 => 'Public (anyone can view)',
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -37,7 +43,7 @@ class Leaderboard extends \yii\db\ActiveRecord
         return [
             [['owner', 'created'], 'required'],
             [['owner', 'public', 'add', 'edit', 'delete', 'track', 'notify_owner', 'created', 'active'], 'integer'],
-            [['name'], 'string', 'max' => 80],
+            [['name'], 'string', 'min' => 5, 'max' => 80],
         ];
     }
 
@@ -49,13 +55,13 @@ class Leaderboard extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'owner' => 'Owner',
-            'public' => 'Public',
-            'add' => 'Add',
-            'edit' => 'Edit',
-            'delete' => 'Delete',
-            'name' => 'Name',
+            'public' => 'Leaderboard Privacy',
+            'add' => 'Allow anyone to ADD their times?',
+            'edit' => 'Allow anyone to EDIT their times?',
+            'delete' => 'Allow anyone to DELETE their times?',
+            'name' => 'Name of Leaderboard',
             'track' => 'Track',
-            'notify_owner' => 'Notify Owner',
+            'notify_owner' => 'Would you like to be notified?',
             'created' => 'Created',
             'active' => 'Active',
         ];
@@ -64,5 +70,36 @@ class Leaderboard extends \yii\db\ActiveRecord
     public function getOwnerUserObject()
     {
         return $this->hasOne(User::className(), ['owner' => 'id']);
+    }
+
+    public function getLeaderboardTimeObjects()
+    {
+        return $this->hasMany(LeaderboardTime::className(), ['leaderboard' => 'id']);
+    }
+
+    public function getLeaderboardUserObjects()
+    {
+        return $this->hasMany(LeaderboardUser::className(), ['leaderboard' => 'id']);
+    }
+
+    public function getLeaderboardUserArray()
+    {
+        $array = [];
+        foreach ($this->leaderboardUserObjects as $leaderboardUserObject)
+            $array[$leaderboardUserObject->id] = $leaderboardUserObject->name;
+        return $array;
+    }
+
+    public function getLeaderboardVehicleObjects()
+    {
+        return $this->hasMany(LeaderboardVehicle::className(), ['leaderboard' => 'id']);
+    }
+
+    public function getLeaderboardVehicleArray()
+    {
+        $array = [];
+        foreach ($this->leaderboardVehicleObjects as $leaderboardVehicleObject)
+            $array[$leaderboardVehicleObject->id] = "$leaderboardVehicleObject->make $leaderboardVehicleObject->model";
+        return $array;
     }
 }

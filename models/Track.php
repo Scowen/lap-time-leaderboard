@@ -52,4 +52,18 @@ class Track extends \yii\db\ActiveRecord
             'created_by' => 'Created By',
         ];
     }
+
+    public static function getDropDownList($user = null)
+    {
+        $array = [null => 'Please Select'];
+
+        $trackObjects = $user ?
+            self::find()->where(['created_by' => $user])->orWhere(['IS', 'created_by', null])->all() :
+            self::find()->where(['IS', 'created_by', null])->all();
+
+        foreach ($trackObjects as $trackObject)
+            $array[$trackObject->id] = $trackObject->name . " " . ($trackObject->year_built ? "($trackObject->year_built)" : "");
+
+        return $array;
+    }
 }

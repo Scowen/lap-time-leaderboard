@@ -7,8 +7,10 @@ date_default_timezone_set("Europe/London");
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use app\models\User;
 use yii\web\HttpException;
+
+use app\models\Leaderboard;
+use app\models\User;
 
 class SiteController extends Controller
 {
@@ -51,7 +53,26 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $ownerLeaderboardObjects = Leaderboard::find()->where(['owner' => $this->user->id])
+            ->andWhere(['active' => 1])
+            ->all();
+
+        $sql = "SELECT 
+                leaderboard.*
+                FROM leaderboard 
+                LEFT JOIN leaderboard_user ON leaderboard_user.leaderboard = leaderboard.id 
+                WHERE 
+                    leaderboard_user.user = :user 
+                    AND leaderboard.owner != :user 
+                    AND leaderboard.active = 1";
+        $joinedLeaderboardObjects = Leaderboard::findBySql($sql, [
+            ':user' => $this->user->id,
+        ])->all();
+
+        return $this->render('index', [
+            'ownerLeaderboardObjects' => $ownerLeaderboardObjects,
+            'joinedLeaderboardObjects' => $joinedLeaderboardObjects,
+        ]);
     }
 
     public function actionLogout()

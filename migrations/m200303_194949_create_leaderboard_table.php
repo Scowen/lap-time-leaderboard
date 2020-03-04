@@ -65,6 +65,7 @@ class m200303_194949_create_leaderboard_table extends Migration
 
         $this->createTable('leaderboard_time', [
             'id' => $this->primaryKey(),
+            'leaderboard' => $this->integer()->notNull(),
             'leaderboard_user' => $this->integer()->notNull(),
             'vehicle' => $this->integer()->notNull(),
             'milliseconds' => $this->double()->notNull(),

@@ -8,6 +8,7 @@ use Yii;
  * This is the model class for table "leaderboard_time".
  *
  * @property int $id
+ * @property int $leaderboard
  * @property int $leaderboard_user
  * @property int $vehicle
  * @property float $milliseconds
@@ -30,7 +31,7 @@ class LeaderboardTime extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['leaderboard_user', 'vehicle', 'milliseconds', 'created'], 'required'],
+            [['leaderboard', 'leaderboard_user', 'vehicle', 'milliseconds', 'created'], 'required'],
             [['leaderboard_user', 'vehicle', 'created', 'created_by'], 'integer'],
             [['milliseconds'], 'number'],
         ];
@@ -43,6 +44,7 @@ class LeaderboardTime extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'leaderboard' => 'Leaderboard',
             'leaderboard_user' => 'Leaderboard User',
             'vehicle' => 'Vehicle',
             'milliseconds' => 'Milliseconds',
