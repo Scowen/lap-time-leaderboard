@@ -59,10 +59,10 @@
     
     <link rel="icon" type="image/png" href="<?= Yii::$app->request->baseurl ?>/">
 
-    <title><?= $this->title ?></title>
+    <title>LTL • <?= $this->title ?></title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <meta name="viewport" content="width=device-width">
-    <meta name="description" content="Bespoke Financial Lending Software tailored to business requirements">
+    <meta name="description" content="Log your lap times against your friends simply and easily.">
 
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
 
@@ -78,12 +78,12 @@
     <div class="wrapper">
         <div class="sidebar">
             <div class="logo text-center">
-                <a class="simple-text logo-normal">LOGO</a>
+                <?= Html::a("LAP TIMES", ['/'], ['class' => 'simple-text logo-normal']) ?>
             </div>
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-customer-dashboard">
-                        <?= Html::a('<i class="ti-layout"></i><p>Dashboard</p>', ['/customer']) ?>
+                        <?= Html::a('<i class="ti-layout"></i><p>Dashboard</p>', ['/']) ?>
                     </li>
                 </ul>
             </div>
@@ -99,7 +99,7 @@
                             <span class="icon-bar bar2"></span>
                             <span class="icon-bar bar3"></span>
                         </button>
-                        <a class="navbar-brand" href="#Dashboard">
+                        <a class="navbar-brand" href="#">
                             <?= $this->title ?>
                         </a>
                     </div>

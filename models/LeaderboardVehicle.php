@@ -55,7 +55,7 @@ class LeaderboardVehicle extends \yii\db\ActiveRecord
 
     public function getVehicleObject()
     {
-        return $this->hasOne(Vehicle::className(), ['vehicle' => 'id']);
+        return $this->hasOne(Vehicle::className(), ['id' => 'vehicle']);
     }
 
 

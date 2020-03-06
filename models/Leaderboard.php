@@ -27,6 +27,12 @@ class Leaderboard extends \yii\db\ActiveRecord
         1 => 'Public (anyone can view)',
     ];
 
+    public static $publicTypesShort = [
+        null => 'Unlisted',
+        0 => 'Private',
+        1 => 'Public',
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -74,12 +80,17 @@ class Leaderboard extends \yii\db\ActiveRecord
 
     public function getLeaderboardTimeObjects()
     {
-        return $this->hasMany(LeaderboardTime::className(), ['leaderboard' => 'id']);
+        return $this->hasMany(LeaderboardTime::className(), ['leaderboard' => 'id'])->orderBy(['milliseconds' => SORT_ASC]);
+    }
+
+    public function getRecentLeaderboardTimeObjects()
+    {
+        return $this->hasMany(LeaderboardTime::className(), ['leaderboard' => 'id'])->orderBy(['created' => SORT_DESC]);;
     }
 
     public function getLeaderboardUserObjects()
     {
-        return $this->hasMany(LeaderboardUser::className(), ['leaderboard' => 'id']);
+        return $this->hasMany(LeaderboardUser::className(), ['leaderboard' => 'id'])->orderBy(['name' => SORT_ASC]);
     }
 
     public function getLeaderboardUserArray()
@@ -98,8 +109,20 @@ class Leaderboard extends \yii\db\ActiveRecord
     public function getLeaderboardVehicleArray()
     {
         $array = [];
-        foreach ($this->leaderboardVehicleObjects as $leaderboardVehicleObject)
-            $array[$leaderboardVehicleObject->id] = "$leaderboardVehicleObject->make $leaderboardVehicleObject->model";
+        foreach ($this->leaderboardVehicleObjects as $leaderboardVehicleObject) {
+            $vehicleObject = $leaderboardVehicleObject->vehicleObject;
+            $array[$leaderboardVehicleObject->id] = ($vehicleObject->colour ? "($vehicleObject->colour)" : "") . "$vehicleObject->make $vehicleObject->model";
+        }
         return $array;
+    }
+
+    public function getNumParticipants()
+    {
+        return LeaderboardUser::find()->where(['leaderboard' => $this->id])->count('id');
+    }
+
+    public function getNumTimes()
+    {
+        return LeaderboardTime::find()->where(['leaderboard' => $this->id])->count('id');
     }
 }

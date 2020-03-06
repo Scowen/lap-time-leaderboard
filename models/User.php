@@ -38,7 +38,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             [['username', 'created'], 'required'],
             ['password', 'match', 'pattern' => '/^\S*(?=\S*[a-z])(?=\S*[A-Z])(?=\S*[\d])\S*$/', 'message' => 'Your password must contain a lowercase letter, an uppercase letter and a digit.'],
             [['password', 'authKey', 'accessToken', 'email'], 'string'],
+            [['display_name'], 'string', 'min' => 5, 'max' => 50],
             [['created', 'root', 'active'], 'integer'],
+            [['email'], 'email'],
         ];
     }
 
