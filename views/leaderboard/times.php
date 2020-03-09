@@ -20,7 +20,7 @@
                     <tr class="time-<?= $timeObject->id ?>">
                         <td><?= $timeObject->leaderboardUserObject->name ?></td>
                         <td><?= $timeObject->vehicleObject->make ?> <?= $timeObject->vehicleObject->model ?></td>
-                        <td>
+                        <td class="oxanium">
                             <?php 
                                 $time = $timeObject->time;
                                 echo $time['minutes'] . ":" . $time['seconds'] . "." . $time['milliseconds'];

@@ -27,7 +27,7 @@ class AppAsset extends AssetBundle
         'css/twbs-xl.css',
         // 'css/datatables.css',
         'third/print/print.min.css',
-        'https://fonts.googleapis.com/css?family=Comfortaa|Roboto+Condensed&display=swap',
+        'https://fonts.googleapis.com/css?family=Comfortaa|Roboto+Condensed|Oxanium&display=swap',
         'third/clusterize/clusterize.css',
     ];
 

@@ -25,16 +25,16 @@
                 <?php foreach ($timeObjects as $timeObject): ?>
                     <?php if (!$previousTimeObject) $previousTimeObject = $timeObject ?>
                     <tr class="time-<?= $timeObject->id ?>" style="background: <?= LeaderboardTime::getTrColour($position); ?>">
-                        <td><?= $position++ ?></td>
+                        <td class="f1"><?= $position++ ?></td>
                         <td><?= $timeObject->leaderboardUserObject->name ?></td>
                         <td><?= $timeObject->vehicleObject->make ?> <?= $timeObject->vehicleObject->model ?></td>
-                        <td>
+                        <td class="oxanium">
                             <?php 
                                 $time = $timeObject->time;
                                 echo $time['minutes'] . ":" . $time['seconds'] . "." . $time['milliseconds'];
                             ?>
                         </td>
-                        <td><?= $timeObject->gapTo($previousTimeObject->milliseconds); ?></td>
+                        <td class="oxanium"><?= $timeObject->gapTo($previousTimeObject->milliseconds); ?></td>
                         <td>
                             <?php if ($leaderboardObject->owner == $userObject->id): ?>
                                 <?= Html::a("<i class='fa fa-times text-danger'></i>", '#', ['class' => 'btn-delete-time', 'data-id' => $timeObject->id]) ?>

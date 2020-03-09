@@ -409,3 +409,28 @@ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before,
 .input-group .form-control:last-child, .input-group-addon:last-child, .input-group-btn:last-child > .dropdown-toggle, .input-group-btn:first-child > .btn:not(:first-child) {
     border-left: 0 none;
 }
+
+@font-face {
+  font-family: "FormulaOne";
+  src: url("../fonts/Formula1-Regular.eot"); /* IE9 Compat Modes */
+  src: url("../fonts/Formula1-Regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("../fonts/Formula1-Regular.otf") format("opentype"), /* Open Type Font */
+    url("../fonts/Formula1-Regular.svg") format("svg"), /* Legacy iOS */
+    url("../fonts/Formula1-Regular.ttf") format("truetype"), /* Safari, Android, iOS */
+    url("../fonts/Formula1-Regular.woff") format("woff"), /* Modern Browsers */
+    url("../fonts/Formula1-Regular.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
+
+.f1 {
+    font-family: 'FormulaOne' !important;
+    padding: 0px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.oxanium {
+    font-family: 'Oxanium';
+    font-size: 14px;
+}
